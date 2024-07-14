@@ -1,0 +1,50 @@
+
+import { NextRequest, NextResponse } from 'next/server';
+import { connectToDB } from '@/lib/connect';
+
+import { auth } from '@clerk/nextjs/server';
+import User from '@/model/user.model';
+import Admin from '@/model/admin.model'; // Adjust the import to match your admin model
+
+export const POST = async (req: NextRequest) => {
+  try {
+    // Parse incoming JSON data from the request body
+    const requestData = await req.json();
+
+    // Extract userId from session claims (assuming you're using Clerk for authentication)
+    const { sessionClaims } = auth();
+    const sessionId = sessionClaims?.userId as string;
+
+    // Connect to MongoDB database
+    await connectToDB();
+
+    // Find the user based on sessionId (userId)
+    const user = await User.findById(sessionId);
+    if (!user) {
+      return NextResponse.json({ message: 'User not found' }, { status: 404 });
+    }
+
+    // Create a new admin profile
+    const newAdminProfile = new Admin({
+      userId: sessionId, // Link admin profile to the user
+      firstName: requestData.firstName,
+      lastName: requestData.lastName,
+      email: requestData.email,
+      phone: requestData.phone,
+      agencyName: requestData.agencyName,
+      agencyAddress: requestData.agencyAddress,
+      agencyType: requestData.agencyType,
+      agencySize: requestData.agencySize,
+    });
+
+    // Save the new admin profile to the database
+    await newAdminProfile.save();
+
+    // Respond with success message
+    return NextResponse.json({ message: 'Admin profile created successfully' });
+  } catch (error) {
+    // Handle errors
+    console.error('Error creating admin profile:', error);
+    return NextResponse.json({ message: 'Failed to create admin profile' }, { status: 500 });
+  }
+};
