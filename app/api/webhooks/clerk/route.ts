@@ -1,6 +1,7 @@
 
 
 
+import { connectToDB } from "@/lib/connect";
 import { createUser } from "@/lib/user.util";
 import { WebhookEvent,clerkClient } from "@clerk/nextjs/server";
 import { headers } from "next/headers";
@@ -10,6 +11,10 @@ import { Webhook } from "svix";
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
+
+  await connectToDB()
+  console.log(req);
+  
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 
   if (!WEBHOOK_SECRET) {
