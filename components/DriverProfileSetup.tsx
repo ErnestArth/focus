@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import { useRouter } from 'next/router';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -30,8 +29,8 @@ interface FormData {
 export default function DriverProfileSetup() {
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
   const [loading, setLoading] = useState(false);
-  const {name,setName}= useStore()
-//   const router = useRouter();
+  const {setName}= useStore()
+
 
   const onSubmit = async (data: FormData) => {
     try {
@@ -66,7 +65,7 @@ export default function DriverProfileSetup() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="country">Country</Label>
-                <Select id="country" {...register('country', { required: 'Country is required' })}>
+                <Select  {...register('country', { required: 'Country is required' })}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select country" />
                   </SelectTrigger>
@@ -89,7 +88,7 @@ export default function DriverProfileSetup() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="gender">Gender</Label>
-                <Select id="gender" {...register('gender', { required: 'Gender is required' })}>
+                <Select  {...register('gender', { required: 'Gender is required' })}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select gender" />
                   </SelectTrigger>
@@ -136,7 +135,7 @@ export default function DriverProfileSetup() {
           <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="vehicleType">Vehicle Type</Label>
-              <Select id="vehicleType" {...register('vehicleType', { required: 'Vehicle type is required' })}>
+              <Select  {...register('vehicleType', { required: 'Vehicle type is required' })}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select vehicle type" />
                 </SelectTrigger>
