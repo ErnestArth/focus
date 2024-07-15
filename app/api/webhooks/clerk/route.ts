@@ -12,7 +12,7 @@ export async function POST(req: Request) {
 
   console.log(req);
   
-  const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
+  const WEBHOOK_SECRET = "whsec_QZwT/O53lhTd6wuiIkM9LiVCgxsItcvD";
 
   if (!WEBHOOK_SECRET) {
     throw new Error(
