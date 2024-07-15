@@ -100,6 +100,10 @@ export async function POST(req: Request) {
 
 
   const newUser = await createUser(user)
+  if(!newUser){
+    return NextResponse.json({ message: "No user"});
+  }
+  
  
     if (newUser) {
       await clerkClient.users.updateUserMetadata(id, {
