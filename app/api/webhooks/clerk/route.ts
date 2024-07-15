@@ -1,7 +1,6 @@
 
+import { createUser } from "@/lib/user.util";
 
-import { connectToDB } from "@/lib/connect";
-import User from "@/model/user.model";
 import { WebhookEvent,clerkClient } from "@clerk/nextjs/server";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
@@ -10,6 +9,9 @@ import { Webhook } from "svix";
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
+
+
+  console.log(req);
   
   const WEBHOOK_SECRET = "whsec_nbUnQRutBVIO813Q+RELvqi9vYCPGWvD";
 
@@ -86,19 +88,18 @@ export async function POST(req: Request) {
 
   if (eventType === "user.created") {
     
-    const { id, email_addresses} =
+    const { id, email_addresses, first_name, last_name } =
       evt.data;
 
-    const user:any = new User ({
+    const user:any = {
       clerkId: id,
       email: email_addresses[0].email_address,
-     
-    });
+      firstName: first_name,
+      lastName: last_name,
+    };
 
 
-    await connectToDB()
-
-  const newUser = await user.save()
+  const newUser = await createUser(user)
  
     if (newUser) {
       await clerkClient.users.updateUserMetadata(id, {

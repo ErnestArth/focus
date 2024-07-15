@@ -17,7 +17,7 @@ export const connectToDB = async () => {
     mongoose.connect(MONGODB_URL, {
       dbName: "testing-mentee",
       bufferCommands: false,
-      connectTimeoutMS: 30000,
+      connectTimeoutMS: 40000,
     });
 
   cached.conn = await cached.promise;
