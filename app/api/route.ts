@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { connectToDB } from '@/lib/connect';
-import { auth } from '@clerk/nextjs/server';
-import User from '@/model/user.model';
-import Driver from '@/model/driver.model';
+
 import { createUser } from '@/lib/user.util';
 
 export const POST = async (req: NextRequest) => {
