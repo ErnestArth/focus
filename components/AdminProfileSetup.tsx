@@ -7,9 +7,9 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent} from "@/comp
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import useStore from '@/lib/store';
+import { useRouter } from 'next/navigation';
 
 interface FormData {
   firstName: string;
@@ -23,22 +23,27 @@ interface FormData {
 }
 
 export default function AdminProfileSetup() {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+  const { register, handleSubmit,watch, formState: { errors } } = useForm<FormData>();
   const [loading, setLoading] = useState(false);
   const {setName}= useStore()
-//   const router = useRouter();
+  const router = useRouter();
+
+const formData = watch();
 
   const onSubmit = async (data: FormData) => {
+    console.log(formData);
+    
     try {
       setLoading(true);
-      const response = await axios.post('http://localhost:3000/api/admin', data);
+      const response = await axios.post('https://focuss-main.vercel.app/api/admin', formData);
       setLoading(false);
       
       if (response.status === 200) {
         alert('Profile updated successfully');
         // Redirect to a specific route, e.g., dashboard
+
         setName('admin')
-        // router.push('/dashboard');
+        router.push('/dashboard');
       } else {
         alert('Failed to update profile');
       }
@@ -76,7 +81,7 @@ export default function AdminProfileSetup() {
           </div>
           <div className="space-y-6">
             <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
+              {/* <div className="space-y-2">
                 <Label htmlFor="agencyType">Agency Type</Label>
                 <Select  {...register('agencyType', { required: 'Agency type is required' })}>
                   <SelectTrigger>
@@ -90,8 +95,8 @@ export default function AdminProfileSetup() {
                   </SelectContent>
                 </Select>
                 {errors.agencyType && <p className="text-red-500">{errors.agencyType.message}</p>}
-              </div>
-              <div className="space-y-2">
+              </div> */}
+              {/* <div className="space-y-2">
                 <Label htmlFor="agencySize">Agency Size</Label>
                 <Select  {...register('agencySize', { required: 'Agency size is required' })}>
                   <SelectTrigger>
@@ -104,7 +109,7 @@ export default function AdminProfileSetup() {
                   </SelectContent>
                 </Select>
                 {errors.agencySize && <p className="text-red-500">{errors.agencySize.message}</p>}
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="md:col-span-2">

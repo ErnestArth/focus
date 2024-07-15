@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";  
+import { useEffect, useState } from "react";  
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
@@ -7,25 +7,78 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuIte
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
-
+import axios from "axios";
+import useStore from "@/lib/store";
 export default function AdminHome() {
   const [isAddDriverOpen, setIsAddDriverOpen] = useState(false);
   const [isViewDriverOpen, setIsViewDriverOpen] = useState(false);
-  const [selectedDriver, setSelectedDriver] = useState<any>(null);
+  const [ setSelectedDriver] = useState<any>(null);
+  const [vehicleData, setVehicleData] = useState({
+    numberPlate: '',
+    vehicleType: '',
+    deviceId: ''
+  });
+  const [vehicles, setVehicles] = useState([]);
+  const {setVehicle}= useStore()
+  const {vehicle}= useStore()
 
-  const drivers = [
-    { name: "Number Plate 1", vehicle: "Sedan", status: "Active", device: "Smartphone", lastUpdated: "2h ago" },
-    { name: "Number Plate 2", vehicle: "SUV", status: "Offline", device: "Tablet", lastUpdated: "1 day ago" },
-    { name: "Number Plate 3", vehicle: "Pickup Truck", status: "Active", device: "GPS", lastUpdated: "3h ago" },
-    { name: "Number Plate 4", vehicle: "Van", status: "Offline", device: "Other", lastUpdated: "2 days ago" },
-  ];
+  useEffect(() => {
+    // Fetch vehicles when component mounts
+    fetchVehicles();
+  }, []);
+
+  const fetchVehicles = async () => {
+    try {
+      const response = await axios.get('https://focuss-main.vercel.app/api/vehicle'); // Replace with your backend API endpoint to fetch vehicles
+
+      if (response.status === 200) {
+        setVehicles(response.data.vehicles);
+        console.log(response);
+         // Update vehicles state with fetched data
+      } else {
+        console.error('Failed to fetch vehicles');
+      }
+    } catch (error) {
+      console.error('Error fetching vehicles:', error);
+    }
+  };
+
+  const handleAddVehicle = async () => {
+    try {
+      const response = await axios.post('https://focuss-main.vercel.app/api/vehicle', vehicleData); // Send vehicleData to backend API
+
+      if (response.status === 200) {
+        alert('Vehicle added successfully');
+      
+        // Optionally, you can update the local state or fetch updated data
+      } else {
+        alert('Failed to add vehicle');
+      }
+    } catch (error) {
+      console.error('Error adding vehicle:', error);
+      alert('An error occurred while adding the vehicle');
+    }
+  };
+
+  const handleChange = (e:any) => {
+    const { name, value } = e.target;
+    setVehicleData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+    console.log(value);
+    
+  };
+  
 
   const handleViewDriver = (driver:any) => {
     setSelectedDriver(driver);
     setIsViewDriverOpen(true);
+    setVehicle(driver)
+    console.log(vehicle,'vehicla');
+    
   };
 
   return (
@@ -37,12 +90,12 @@ export default function AdminHome() {
           <Button onClick={() => setIsAddDriverOpen(true)}>Add New Vehicle</Button>
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-6xl w-full mx-auto">
-          {drivers.map((driver, index) => (
+          {vehicles?.map((driver:any, index) => (
             <Card key={index}>
               <CardHeader className="flex flex-row items-center gap-4">
                 <div className="grid gap-1">
-                  <CardTitle>{driver.name}</CardTitle>
-                  <CardDescription>{driver.vehicle}</CardDescription>
+                  <CardTitle>{driver.numberPlate}</CardTitle>
+                  <CardDescription>{driver.deviceId}</CardDescription>
                 </div>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -86,13 +139,17 @@ export default function AdminHome() {
               <Label htmlFor="name" className="text-right">
                 Number Plate
               </Label>
-              <Input id="name" className="col-span-3" />
+              <Input
+                id="numberPlate"
+                name="numberPlate"
+                value={vehicleData.numberPlate}
+                onChange={handleChange}
+                className="col-span-3"
+              />
             </div>
             <div className="grid items-center grid-cols-4 gap-4">
-              <Label htmlFor="vehicle" className="text-right">
-                Vehicle
-              </Label>
-              <Select  >
+              
+              {/* <Select  >
                 <SelectTrigger>
                   <SelectValue placeholder="Select vehicle" />
                 </SelectTrigger>
@@ -102,18 +159,25 @@ export default function AdminHome() {
                   <SelectItem value="pickup">Pickup Truck</SelectItem>
                   <SelectItem value="van">Van</SelectItem>
                 </SelectContent>
-              </Select>
+              </Select> */}
             </div>
             <div className="grid items-center grid-cols-4 gap-4">
               <Label htmlFor="deviceId" className="text-right">
                 DeviceId
               </Label>
               
-              <Input id="deviceId" placeholder="enter device mac-address" className="col-span-3" />
+              <Input
+                id="deviceId"
+                name="deviceId"
+                value={vehicleData.deviceId}
+                onChange={handleChange}
+                placeholder="Enter device ID"
+                className="col-span-3"
+              />
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Save vehicle</Button>
+            <Button  onClick={handleAddVehicle}>Save vehicle</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -126,29 +190,29 @@ export default function AdminHome() {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[800px]">
           <DialogHeader>
-            <DialogTitle>{selectedDriver?.name}</DialogTitle>
+            <DialogTitle>{vehicle?.numberPlate}</DialogTitle>
             <DialogDescription>Detailed information about the driver.</DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid items-center grid-cols-4 gap-4">
               <Label className="text-right">Vehicle</Label>
-              <div className="col-span-3">{selectedDriver?.vehicle}</div>
+              <div className="col-span-3">{vehicle?.numberPlate}</div>
             </div>
             <div className="grid items-center grid-cols-4 gap-4">
               <Label className="text-right">Device</Label>
-              <div className="col-span-3">{selectedDriver?.device}</div>
+              <div className="col-span-3">{vehicle?.numberPlate}</div>
             </div>
             <div className="grid items-center grid-cols-4 gap-4">
               <Label className="text-right">Status</Label>
               <div className="col-span-3">
-                <Badge className="text-xs" variant={selectedDriver?.status === "Active" ? "secondary" : "outline"}>
-                  {selectedDriver?.status}
+                <Badge className="text-xs" variant={vehicle?.numberPlate === "Active" ? "secondary" : "outline"}>
+                  {vehicle?.numberPlate}
                 </Badge>
               </div>
             </div>
             <div className="grid items-center grid-cols-4 gap-4">
               <Label className="text-right">Last Updated</Label>
-              <div className="col-span-3">{selectedDriver?.lastUpdated}</div>
+              <div className="col-span-3">{vehicle?.numberPlate}</div>
             </div>
             <Separator />
             <div className="grid gap-2">

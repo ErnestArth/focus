@@ -9,43 +9,30 @@ const DriverSchema = new Schema({
   
   dateOfBirth: {
     type: Date,
-    required: true,
-  },
-  gender: {
-    type: String,
-    enum: ['male', 'female', 'other'],
-    required: true,
+    required: false,
   },
   contactNumber: {
     type: String,
-    required: true,
+    required: false,
   },
   deviceId: {
     type: String,
-    required: true,
+    required: false,
   },
   streetAddress: {
     type: String,
-    required: true,
+    required: false,
   },
   city: {
     type: String,
-    required: true,
+    required: false,
   },
   state: {
     type: String,
-    required: true,
+    required: false,
   },
-  country: {
-    type: String,
-    enum: ['usa', 'canada', 'uk', 'australia', 'germany'],
-    required: true,
-  },
-  vehicleType: {
-    type: String,
-    enum: ['truck', 'bus', 'van', 'car', 'motorcycle'],
-    required: true,
-  },
+  
+
   createdAt: {
     type: Date,
     default: Date.now,

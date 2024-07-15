@@ -13,22 +13,14 @@ const AdminSchema = new Schema({
   },
   agencyName: {
     type: String,
-    required: true,
+    required: false,
   },
   agencyAddress: {
     type: String,
-    required: true,
+    required: false,
   },
-  agencyType: {
-    type: String,
-    enum: ['taxi', 'rideshare', 'delivery', 'other'],
-    required: true,
-  },
-  agencySize: {
-    type: String,
-    enum: ['small', 'medium', 'large'],
-    required: true,
-  },
+  
+  
   createdAt: {
     type: Date,
     default: Date.now,

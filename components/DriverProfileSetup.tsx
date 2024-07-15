@@ -1,14 +1,14 @@
-// components/DriverProfileSetup.tsx
 'use client'
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import {  useForm } from 'react-hook-form';
 import axios from 'axios';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+// import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import useStore from '@/lib/store';
+
 
 interface FormData {
   fullName: string;
@@ -27,22 +27,23 @@ interface FormData {
 }
 
 export default function DriverProfileSetup() {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<FormData>();
   const [loading, setLoading] = useState(false);
-  const {setName}= useStore()
+  const { setName } = useStore()
 
+  const formData = watch();
 
   const onSubmit = async (data: FormData) => {
     try {
       setLoading(true);
-      const response = await axios.post('/api/driver/profile', data);
+      console.log("Form Data:", formData); // Log the form data
+      const response = await axios.post('https://focuss-main.vercel.app/api/driver', formData);
+
       setLoading(false);
 
       if (response.status === 200) {
         alert('Profile updated successfully');
-        // Redirect to a specific route, e.g., dashboard
-        // router.push('/dashboard');
-        setName('driver')
+        setName('driver');
       } else {
         alert('Failed to update profile');
       }
@@ -52,6 +53,10 @@ export default function DriverProfileSetup() {
       alert('An error occurred while updating the profile');
     }
   };
+
+  // Watch all fields to log changes
+  
+ 
 
   return (
     <Card className="max-w-4xl mx-auto p-6 sm:p-8 md:p-10">
@@ -63,22 +68,28 @@ export default function DriverProfileSetup() {
         <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="country">Country</Label>
-                <Select  {...register('country', { required: 'Country is required' })}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select country" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="usa">United States</SelectItem>
-                    <SelectItem value="canada">Canada</SelectItem>
-                    <SelectItem value="uk">United Kingdom</SelectItem>
-                    <SelectItem value="australia">Australia</SelectItem>
-                    <SelectItem value="germany">Germany</SelectItem>
-                  </SelectContent>
-                </Select>
+              {/* <div className="space-y-2">
+              <Label htmlFor="gender">Gender</Label>
+                <Controller
+                  name="gender"
+                  control={control}
+                  defaultValue=""
+                  rules={{ required: 'Gender is required' }}
+                  render={({ field }) => (
+                    <Select {...field}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select gender" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="male">Male</SelectItem>
+                        <SelectItem value="female">Female</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
                 {errors.country && <p className="text-red-500">{errors.country.message as string}</p>}
-              </div>
+              </div> */}
               <div className="space-y-2">
                 <Label htmlFor="dateOfBirth">Date of Birth</Label>
                 <Input id="dateOfBirth" type="date" {...register('dateOfBirth', { required: 'Date of birth is required' })} />
@@ -86,9 +97,9 @@ export default function DriverProfileSetup() {
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
+              {/* <div className="space-y-2">
                 <Label htmlFor="gender">Gender</Label>
-                <Select  {...register('gender', { required: 'Gender is required' })}>
+                <Select {...register('gender', { required: 'Gender is required' })}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select gender" />
                   </SelectTrigger>
@@ -99,7 +110,7 @@ export default function DriverProfileSetup() {
                   </SelectContent>
                 </Select>
                 {errors.gender && <p className="text-red-500">{errors.gender.message as string}</p>}
-              </div>
+              </div> */}
               <div className="space-y-2">
                 <Label htmlFor="contactNumber">Contact Number</Label>
                 <Input id="contactNumber" type="tel" {...register('contactNumber', { required: 'Contact number is required' })} placeholder="+1 (123) 456-7890" />
@@ -133,9 +144,9 @@ export default function DriverProfileSetup() {
             </div>
           </div>
           <div className="space-y-4">
-            <div className="space-y-2">
+            {/* <div className="space-y-2">
               <Label htmlFor="vehicleType">Vehicle Type</Label>
-              <Select  {...register('vehicleType', { required: 'Vehicle type is required' })}>
+              <Select {...register('vehicleType', { required: 'Vehicle type is required' })}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select vehicle type" />
                 </SelectTrigger>
@@ -148,15 +159,18 @@ export default function DriverProfileSetup() {
                 </SelectContent>
               </Select>
               {errors.vehicleType && <p className="text-red-500">{errors.vehicleType.message as string}</p>}
-            </div>
+            </div> */}
+            
+            
           </div>
+          <CardFooter className="flex justify-end gap-2">
+            <Button type="submit" disabled={loading}>
+              {loading ? 'Loading...' : 'Submit'}
+            </Button>
+          </CardFooter>
         </form>
       </CardContent>
-      <CardFooter className="flex justify-end gap-2">
-        <Button type="submit" disabled={loading}>
-          {loading ? 'loading...' : 'Submit'}
-        </Button>
-      </CardFooter>
     </Card>
   );
 }
+

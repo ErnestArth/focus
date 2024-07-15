@@ -14,13 +14,19 @@ export const POST = async (req: NextRequest) => {
 
     // Extract userId from session claims (assuming you're using Clerk for authentication)
     const { sessionClaims } = auth();
+    console.log(sessionClaims,'id');
+    
     const sessionId = sessionClaims?.userId as string;
+    console.log(sessionId);
+    
 
     // Connect to MongoDB database
     await connectToDB();
 
     // Find the user based on sessionId (userId)
     const user = await User.findById(sessionId);
+    console.log(user);
+    
     if (!user) {
       return NextResponse.json({ message: 'User not found' }, { status: 404 });
     }
@@ -30,15 +36,14 @@ export const POST = async (req: NextRequest) => {
       userId: sessionId, // Link driver profile to the user
       fullName: requestData.fullName,
       dateOfBirth: requestData.dateOfBirth,
-      gender: requestData.gender,
+      
       contactNumber: requestData.contactNumber,
       email: requestData.email,
       deviceId: requestData.deviceId,
       streetAddress: requestData.streetAddress,
       city: requestData.city,
       state: requestData.state,
-      country: requestData.country,
-      vehicleType: requestData.vehicleType,
+     
     });
 
     // Save the new driver profile to the database

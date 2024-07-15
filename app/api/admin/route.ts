@@ -17,6 +17,8 @@ export const POST = async (req: NextRequest) => {
 
     // Connect to MongoDB database
     await connectToDB();
+    console.log(sessionId);
+    
 
     // Find the user based on sessionId (userId)
     const user = await User.findById(sessionId);
@@ -27,14 +29,9 @@ export const POST = async (req: NextRequest) => {
     // Create a new admin profile
     const newAdminProfile = new Admin({
       userId: sessionId, // Link admin profile to the user
-      firstName: requestData.firstName,
-      lastName: requestData.lastName,
-      email: requestData.email,
       phone: requestData.phone,
       agencyName: requestData.agencyName,
-      agencyAddress: requestData.agencyAddress,
-      agencyType: requestData.agencyType,
-      agencySize: requestData.agencySize,
+     
     });
 
     // Save the new admin profile to the database
