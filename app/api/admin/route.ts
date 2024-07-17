@@ -13,11 +13,12 @@ export const POST = async (req: NextRequest) => {
 
     // Extract userId from session claims (assuming you're using Clerk for authentication)
     const { sessionClaims } = auth();
+
     const sessionId = sessionClaims?.userId as string;
 
     // Connect to MongoDB database
     await connectToDB();
-    console.log(sessionId);
+    console.log(sessionClaims);
     
 
     // Find the user based on sessionId (userId)

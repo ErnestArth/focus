@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 // import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import useStore from '@/lib/store';
+import { useRouter } from 'next/navigation';
 
 
 interface FormData {
@@ -30,6 +31,7 @@ export default function DriverProfileSetup() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm<FormData>();
   const [loading, setLoading] = useState(false);
   const { setName } = useStore()
+  const router = useRouter();
 
   const formData = watch();
 
@@ -44,6 +46,7 @@ export default function DriverProfileSetup() {
       if (response.status === 200) {
         alert('Profile updated successfully');
         setName('driver');
+        router.push('/dashboard');
       } else {
         alert('Failed to update profile');
       }

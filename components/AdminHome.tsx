@@ -7,23 +7,25 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuIte
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+
 import { Separator } from "@/components/ui/separator";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import axios from "axios";
+
 import useStore from "@/lib/store";
 export default function AdminHome() {
   const [isAddDriverOpen, setIsAddDriverOpen] = useState(false);
   const [isViewDriverOpen, setIsViewDriverOpen] = useState(false);
-  const [ setSelectedDriver] = useState<any>(null);
-  const [vehicleData, setVehicleData] = useState({
+  // const [selectedDriver, setSelectedDriver] = useState<any>(null);
+
+  
+  const [vehicleData, setVehicleData] = useState<any>({
     numberPlate: '',
     vehicleType: '',
     deviceId: ''
   });
   const [vehicles, setVehicles] = useState([]);
-  const {setVehicle}= useStore()
-  const {vehicle}= useStore()
-
+  const {vehicle,setVehicle}= useStore()
   useEffect(() => {
     // Fetch vehicles when component mounts
     fetchVehicles();
@@ -71,14 +73,17 @@ export default function AdminHome() {
     console.log(value);
     
   };
-  
+  const drivers = [
+    { name: "Number Plate 1", vehicle: "Sedan", status: "Active", device: "Smartphone", lastUpdated: "2h ago" },
+    { name: "Number Plate 2", vehicle: "SUV", status: "Offline", device: "Tablet", lastUpdated: "1 day ago" },
+    { name: "Number Plate 3", vehicle: "Pickup Truck", status: "Active", device: "GPS", lastUpdated: "3h ago" },
+    { name: "Number Plate 4", vehicle: "Van", status: "Offline", device: "Other", lastUpdated: "2 days ago" },
+  ];
 
   const handleViewDriver = (driver:any) => {
-    setSelectedDriver(driver);
+    // setSelectedDriver(driver);
     setIsViewDriverOpen(true);
     setVehicle(driver)
-    console.log(vehicle,'vehicla');
-    
   };
 
   return (
@@ -90,7 +95,7 @@ export default function AdminHome() {
           <Button onClick={() => setIsAddDriverOpen(true)}>Add New Vehicle</Button>
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-6xl w-full mx-auto">
-          {vehicles?.map((driver:any, index) => (
+          {vehicles?.map((driver, index) => (
             <Card key={index}>
               <CardHeader className="flex flex-row items-center gap-4">
                 <div className="grid gap-1">

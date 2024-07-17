@@ -1,10 +1,5 @@
 'use client'
 
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/6KnK6VbW8Wq
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
