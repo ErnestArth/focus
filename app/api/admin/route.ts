@@ -1,7 +1,6 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { connectToDB } from '@/lib/connect';
-
 import { auth } from '@clerk/nextjs/server';
 import User from '@/model/user.model';
 import Admin from '@/model/admin.model'; // Adjust the import to match your admin model
@@ -10,6 +9,9 @@ export const POST = async (req: NextRequest) => {
   try {
     // Parse incoming JSON data from the request body
     const requestData = await req.json();
+    const { userId } = requestData
+    console.log(userId,'HDDHHD');
+    
 
     // Extract userId from session claims (assuming you're using Clerk for authentication)
     const { sessionClaims } = auth();

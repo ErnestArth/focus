@@ -27,7 +27,7 @@ export default function AdminProfileSetup() {
   const [loading, setLoading] = useState(false);
   const {setName}= useStore()
   const router = useRouter();
-
+   
 const formData = watch();
 
   const onSubmit = async (data: FormData) => {

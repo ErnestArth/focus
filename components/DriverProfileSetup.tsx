@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import useStore from '@/lib/store';
 import { useRouter } from 'next/navigation';
+import { useUser } from '@clerk/nextjs';
 
 
 interface FormData {
@@ -32,14 +33,20 @@ export default function DriverProfileSetup() {
   const [loading, setLoading] = useState(false);
   const { setName } = useStore()
   const router = useRouter();
+  const {user }:any= useUser()
 
+  
   const formData = watch();
 
   const onSubmit = async (data: FormData) => {
     try {
       setLoading(true);
-      console.log("Form Data:", formData); // Log the form data
-      const response = await axios.post('https://focuss-main.vercel.app/api/driver', formData);
+      const mergedData = {
+        ...formData,
+       userId: user?.publicMetadata// Merge publicMetadata with form data
+      };
+      console.log("Form Data:s", mergedData); // Log the form data
+      const response = await axios.post('https://focuss-main.vercel.app/api/driver', mergedData);
 
       setLoading(false);
 

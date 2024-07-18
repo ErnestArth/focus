@@ -11,7 +11,9 @@ export const POST = async (req: NextRequest) => {
   try {
     // Parse incoming JSON data from the request body
     const requestData = await req.json();
-
+    const { userId } = requestData
+    console.log(userId,'HDDHHD');
+    
     // Extract userId from session claims (assuming you're using Clerk for authentication)
     const { sessionClaims } = auth();
     console.log(sessionClaims,'id');
