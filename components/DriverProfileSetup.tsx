@@ -43,7 +43,7 @@ export default function DriverProfileSetup() {
       setLoading(true);
       const mergedData = {
         ...formData,
-       userId: user?.publicMetadata// Merge publicMetadata with form data
+       userId: user?.publicMetadata?.userId// Merge publicMetadata with form data
       };
       console.log("Form Data:s", mergedData); // Log the form data
       const response = await axios.post('https://focuss-main.vercel.app/api/driver', mergedData);

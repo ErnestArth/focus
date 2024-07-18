@@ -12,7 +12,8 @@ export const POST = async (req: NextRequest) => {
     // Parse incoming JSON data from the request body
     const requestData = await req.json();
     const { userId } = requestData
-    console.log(userId,'HDDHHD');
+    // console.log(userId,'HDDHHD');
+    // const userId= "669885e7cc60666595c63187"
     
     // Extract userId from session claims (assuming you're using Clerk for authentication)
     // const { sessionClaims } = auth();
@@ -38,9 +39,8 @@ export const POST = async (req: NextRequest) => {
       userId, // Link driver profile to the user
       fullName: requestData.fullName,
       dateOfBirth: requestData.dateOfBirth,
-      
       contactNumber: requestData.contactNumber,
-      email: requestData.email,
+     
       deviceId: requestData.deviceId,
       streetAddress: requestData.streetAddress,
       city: requestData.city,

@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import useStore from '@/lib/store';
 import { useRouter } from 'next/navigation';
+import { useUser } from '@clerk/nextjs';
 
 interface FormData {
   firstName: string;
@@ -27,15 +28,20 @@ export default function AdminProfileSetup() {
   const [loading, setLoading] = useState(false);
   const {setName}= useStore()
   const router = useRouter();
-   
+  const {user }:any= useUser()  
 const formData = watch();
 
   const onSubmit = async (data: FormData) => {
     console.log(formData);
+    const mergedData = {
+      ...formData,
+     userId: user?.publicMetadata// Merge publicMetadata with form data
+    };
+    console.log(mergedData);
     
     try {
       setLoading(true);
-      const response = await axios.post('https://focuss-main.vercel.app/api/admin', formData);
+      const response = await axios.post('https://focuss-main.vercel.app/api/admin', mergedData);
       setLoading(false);
       
       if (response.status === 200) {
