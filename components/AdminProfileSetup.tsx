@@ -35,7 +35,7 @@ const formData = watch();
     console.log(formData);
     const mergedData = {
       ...formData,
-     userId: user?.publicMetadata// Merge publicMetadata with form data
+     userId: user?.publicMetadata?.userId// Merge publicMetadata with form data
     };
     console.log(mergedData);
     
