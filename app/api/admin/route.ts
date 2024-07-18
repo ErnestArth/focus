@@ -1,7 +1,6 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { connectToDB } from '@/lib/connect';
-import { auth } from '@clerk/nextjs/server';
 import User from '@/model/user.model';
 import Admin from '@/model/admin.model'; // Adjust the import to match your admin model
 
@@ -14,24 +13,24 @@ export const POST = async (req: NextRequest) => {
     
 
     // Extract userId from session claims (assuming you're using Clerk for authentication)
-    const { sessionClaims } = auth();
+    // const { sessionClaims } = auth();
 
-    const sessionId = sessionClaims?.userId as string;
+    // const sessionId = sessionClaims?.userId as string;
 
-    // Connect to MongoDB database
+    // // Connect to MongoDB database
     await connectToDB();
-    console.log(sessionClaims);
+    // console.log(sessionClaims);
     
 
     // Find the user based on sessionId (userId)
-    const user = await User.findById(sessionId);
+    const user = await User.findById(userId);
     if (!user) {
       return NextResponse.json({ message: 'User not found' }, { status: 404 });
     }
 
     // Create a new admin profile
     const newAdminProfile = new Admin({
-      userId: sessionId, // Link admin profile to the user
+      userId: userId, // Link admin profile to the user
       phone: requestData.phone,
       agencyName: requestData.agencyName,
      

@@ -3,7 +3,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { connectToDB } from '@/lib/connect';
 
-import { auth } from '@clerk/nextjs/server';
+
 import User from '@/model/user.model';
 import Driver from '@/model/driver.model';
 
@@ -15,18 +15,18 @@ export const POST = async (req: NextRequest) => {
     console.log(userId,'HDDHHD');
     
     // Extract userId from session claims (assuming you're using Clerk for authentication)
-    const { sessionClaims } = auth();
-    console.log(sessionClaims,'id');
+    // const { sessionClaims } = auth();
+    // console.log(sessionClaims,'id');
     
-    const sessionId = sessionClaims?.userId as string;
-    console.log(sessionId);
+    // const sessionId = sessionClaims?.userId as string;
+    // console.log(sessionId);
     
 
     // Connect to MongoDB database
     await connectToDB();
 
     // Find the user based on sessionId (userId)
-    const user = await User.findById(sessionId);
+    const user = await User.findById(userId);
     console.log(user);
     
     if (!user) {
@@ -35,7 +35,7 @@ export const POST = async (req: NextRequest) => {
 
     // Create a new driver profile
     const newDriverProfile = new Driver({
-      userId: sessionId, // Link driver profile to the user
+      userId, // Link driver profile to the user
       fullName: requestData.fullName,
       dateOfBirth: requestData.dateOfBirth,
       
