@@ -9,7 +9,7 @@ export const POST = async (req: NextRequest) => {
     // Parse incoming JSON data from the request body
     const requestData = await req.json();
     const { userId } = requestData
-    console.log(userId,'HDDHHD');
+    // console.log(userId,'HDDHHD');
     
 
     // Extract userId from session claims (assuming you're using Clerk for authentication)
@@ -30,7 +30,7 @@ export const POST = async (req: NextRequest) => {
 
     // Create a new admin profile
     const newAdminProfile = new Admin({
-      userId: userId, // Link admin profile to the user
+      userId, // Link admin profile to the user
       phone: requestData.phone,
       agencyName: requestData.agencyName,
      
