@@ -41,7 +41,7 @@ const formData = watch();
     
     try {
       setLoading(true);
-      const response = await axios.post('https://focuss-main.vercel.app/api/admin', mergedData);
+      const response = await axios.post('http://localhost:3000/api/admin', mergedData);
       setLoading(false);
       
       if (response.status === 200) {

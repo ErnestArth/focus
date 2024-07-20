@@ -11,6 +11,10 @@ const AdminSchema = new Schema({
     type: String,
     required: true,
   },
+  usertype: {
+    type: String,
+    required: false,
+  },
   agencyName: {
     type: String,
     required: false,

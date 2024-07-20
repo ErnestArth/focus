@@ -1,7 +1,6 @@
 import { Schema, models, model } from "mongoose";
+
 const VehicleSchema = new Schema({
-   
-  
   numberPlate: {
     type: String,
     required: false,
@@ -14,15 +13,23 @@ const VehicleSchema = new Schema({
     type: String,
     required: false,
   },
-
+  fatigueWarnings: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+  status: {
+    type: String,
+    required: false,
+    enum: ['active', 'inactive'],
+    default: 'active',
+  },
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
 
-const Vehicle = models.Vehicle || model("Vehicle", VehicleSchema)
+const Vehicle = models.Vehicle || model("Vehicle", VehicleSchema);
 
 export default Vehicle;
-
-

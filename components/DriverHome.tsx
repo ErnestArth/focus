@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { Progress } from "@/components/ui/progress"
 import { CartesianGrid, XAxis, Line, LineChart } from "recharts"
 import { ChartTooltipContent, ChartTooltip, ChartContainer } from "@/components/ui/chart"
 
@@ -12,7 +11,7 @@ export default function DriverHome() {
       <div className="flex flex-col md:flex-row items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold mb-2">Driver Fatigue Dashboard</h1>
-          <p className="text-muted-foreground">Monitor and manage your drivers fatigue levels in real-time.</p>
+          <p className="text-muted-foreground">Monitor and manage your driving fatigue levels in real-time.</p>
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2 text-sm font-medium">
@@ -33,9 +32,9 @@ export default function DriverHome() {
           <CardContent className="flex flex-col items-center justify-center">
             <div className="relative w-full h-32">
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-4xl font-bold text-green-500">Normal</div>
+                <div className="text-4xl font-bold text-green-500">No Value</div>
               </div>
-              <Progress value={30} className="h-full" />
+              
             </div>
           </CardContent>
         </Card>
@@ -53,19 +52,19 @@ export default function DriverHome() {
           </CardHeader>
           <CardContent className="grid grid-cols-2 gap-4">
             <div className="flex flex-col items-center">
-              <div className="text-4xl font-bold">3.2</div>
+              <div className="text-4xl font-bold">0</div>
               <div className="text-muted-foreground">Average Fatigue</div>
             </div>
             <div className="flex flex-col items-center">
-              <div className="text-4xl font-bold">8</div>
+              <div className="text-4xl font-bold">0</div>
               <div className="text-muted-foreground">Fatigue Alerts</div>
             </div>
             <div className="flex flex-col items-center">
-              <div className="text-4xl font-bold">-15%</div>
+              <div className="text-4xl font-bold">0%</div>
               <div className="text-muted-foreground">Fatigue Trend</div>
             </div>
             <div className="flex flex-col items-center">
-              <div className="text-4xl font-bold">92%</div>
+              <div className="text-4xl font-bold">0%</div>
               <div className="text-muted-foreground">Fatigue Reduction</div>
             </div>
           </CardContent>

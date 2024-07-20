@@ -33,6 +33,7 @@ export const POST = async (req: NextRequest) => {
       userId, // Link admin profile to the user
       phone: requestData.phone,
       agencyName: requestData.agencyName,
+      usertype:'driver',
      
     });
 
@@ -40,7 +41,7 @@ export const POST = async (req: NextRequest) => {
     await newAdminProfile.save();
 
     // Respond with success message
-    return NextResponse.json({ message: 'Admin profile created successfully' });
+    return NextResponse.json({ message: 'Admin profile created successfully',newAdminProfile });
   } catch (error) {
     // Handle errors
     console.error('Error creating admin profile:', error);

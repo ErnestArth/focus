@@ -16,7 +16,6 @@ function Page() {
     setSelectedCard(card);
   };
 
- 
 
   return (
     <section className="flex flex-col justify-center items-center h-screen max-w-md mx-auto">
@@ -26,7 +25,7 @@ function Page() {
       <h1 className="my-8 font-semibold text-white sm:text-xl">Which user type do you prefer ?</h1>
       <div className="flex gap-4 my-3 w-[80%]">
         <div
-          className={`flex flex-col border ${
+          className={`flex flex-col border-white border ${
             selectedCard === 'driver' ? 'border-purple-1' : 'border-black/20'
           } px-4 py-2 rounded cursor-pointer hover:border-purple-1/60 shadow-sm w-[50%]`}
           onClick={() => handleBorderChange('driver')}
@@ -36,7 +35,7 @@ function Page() {
           <p className="text-[14px] text-white">Drive safe and monitor </p>
         </div>
         <div
-          className={`flex flex-col text-white border ${
+          className={`flex flex-col border-white text-white border ${
             selectedCard === 'admin' ? 'border-purple-1' : 'border-black/20'
           } px-4 py-2 rounded cursor-pointer hover:border-purple-1/60 shadow-sm w-[50%]`}
           onClick={() => handleBorderChange('admin')}
