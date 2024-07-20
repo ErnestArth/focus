@@ -19,7 +19,7 @@ export const GET = async (req: NextRequest) => {
     await connectToDB();
 
     // Check if the user is a driver
-    const driver = await Driver.findOne({ userId }).populate('vehicle');
+    const driver = await Driver.findOne({ userId })
     
     if (driver) {
       return NextResponse.json({ userType: 'driver', driver });
@@ -27,6 +27,7 @@ export const GET = async (req: NextRequest) => {
 
     // If not a driver, check if the user is an admin
     const admin = await Admin.findOne({ userId });
+    
     
     if (admin) {
       return NextResponse.json({ userType: 'admin', admin });

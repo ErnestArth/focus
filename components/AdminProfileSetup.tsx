@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import useStore from '@/lib/store';
+
 import { useRouter } from 'next/navigation';
 import { useUser } from '@clerk/nextjs';
 
@@ -26,7 +26,7 @@ interface FormData {
 export default function AdminProfileSetup() {
   const { register, handleSubmit,watch, formState: { errors } } = useForm<FormData>();
   const [loading, setLoading] = useState(false);
-  const {setName}= useStore()
+
   const router = useRouter();
   const {user }:any= useUser()  
 const formData = watch();
@@ -48,8 +48,8 @@ const formData = watch();
         alert('Profile updated successfully');
         // Redirect to a specific route, e.g., dashboard
 
-        setName('admin')
-        router.push('/dashboard');
+        
+        router.push('/');
       } else {
         alert('Failed to update profile');
       }
