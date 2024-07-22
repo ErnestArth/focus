@@ -2,6 +2,7 @@
 
 
 import DriverHome from '@/components/DriverHome';
+import AdminHome from '@/components/AdminHome';
 import useStore from '@/lib/store';
 import { useUser } from '@clerk/nextjs';
 import { useEffect } from 'react';
@@ -42,7 +43,7 @@ const Home = () => {
       <Card/>
       <Card/>
       <Card/> */}
-      { name === 'driver'? <DriverHome/> :  <DriverHome/>  }
+      { name === 'driver'? <DriverHome/> :  <AdminHome/> }
       
 
 
