@@ -5,7 +5,7 @@ import DriverHome from '@/components/DriverHome';
 import AdminHome from '@/components/AdminHome';
 import useStore from '@/lib/store';
 import { useUser } from '@clerk/nextjs';
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 
 
 const Home = () => {
@@ -13,13 +13,14 @@ const Home = () => {
   // const time = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
   // const date = (new Intl.DateTimeFormat('en-US', { dateStyle: 'full' })).format(now);
   const {user }:any= useUser() 
+  const [state,setState]=useState([])
   
   useEffect(() => {
     // Self-calling function to fetch user type and data
     (async () => {
       try {
         // Make the request to fetch user type and data
-        const response = await fetch(`/api/usertype?userId=${user?.publicMetadata?.userId}`);
+        const response = await fetch(`https://focuss-main.vercel.app/api/usertype?userId=${user?.publicMetadata?.userId}`);
         
         
         if (!response.ok) {
@@ -27,6 +28,7 @@ const Home = () => {
         }
 
         const data = await response.json();
+        setName(data.data.usertype)
         console.log('Fetched data:', data); // For debugging
 
        
@@ -36,14 +38,14 @@ const Home = () => {
       } 
     })(); // Self-calling function
   }, [])
- const {name}= useStore()
+ // const {name}= useStore()
   return (
     <section className="flex size-full  items-center justify-center flex-wrap gap-5 text-white">
       {/* <Card/>
       <Card/>
       <Card/>
       <Card/> */}
-      { name === 'driver'? <DriverHome/> :  <AdminHome/> }
+      { state === 'driver'? <DriverHome/> :  <AdminHome/> }
       
 
 
