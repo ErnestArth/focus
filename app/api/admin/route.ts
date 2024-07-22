@@ -33,7 +33,7 @@ export const POST = async (req: NextRequest) => {
       userId, // Link admin profile to the user
       phone: requestData.phone,
       agencyName: requestData.agencyName,
-      usertype:'driver',
+      usertype:'admin',
      
     });
 
