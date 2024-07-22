@@ -3,7 +3,7 @@
 
 import DriverHome from '@/components/DriverHome';
 import AdminHome from '@/components/AdminHome';
-import useStore from '@/lib/store';
+// import useStore from '@/lib/store';
 import { useUser } from '@clerk/nextjs';
 import { useEffect,useState } from 'react';
 
@@ -13,7 +13,7 @@ const Home = () => {
   // const time = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
   // const date = (new Intl.DateTimeFormat('en-US', { dateStyle: 'full' })).format(now);
   const {user }:any= useUser() 
-  const [state,setState]=useState([])
+  const [state,setState]=useState<any>([])
   
   useEffect(() => {
     // Self-calling function to fetch user type and data
@@ -27,7 +27,7 @@ const Home = () => {
           throw new Error('Network response was not ok');
         }
 
-        const data = await response.json();
+        const data:any = await response.json();
         setState(data.data.usertype)
         console.log(data)
         console.log('Fetched data:', data); // For debugging
