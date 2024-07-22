@@ -28,7 +28,7 @@ const Home = () => {
         }
 
         const data = await response.json();
-        setName(data.data.usertype)
+        setState(data.data.usertype)
         console.log(data)
         console.log('Fetched data:', data); // For debugging
 
