@@ -7,6 +7,10 @@ import Link from "next/link"
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import banner from "../public/images/image.jpg"
+import image from "../public/images/banner.jpg"
+// import image1 from "../public/images/ourteam.svg"
+import Image from "next/image"
 
 export default function LandingPage() {
   return (
@@ -27,7 +31,7 @@ export default function LandingPage() {
             <SheetContent side="right">
               <nav className="grid gap-4 sm:gap-6 p-4">
                 <Link
-                  href="#"
+                  href="/sign-in"
                   className="text-sm font-medium hover:underline underline-offset-4 flex items-center"
                   prefetch={false}
                 >
@@ -35,7 +39,7 @@ export default function LandingPage() {
                   For Drivers
                 </Link>
                 <Link
-                  href="#"
+                  href="/sign-in"
                   className="text-sm font-medium hover:underline underline-offset-4 flex items-center"
                   prefetch={false}
                 >
@@ -50,20 +54,13 @@ export default function LandingPage() {
                   <DollarSignIcon className="h-4 w-4 mr-2" />
                   Pricing
                 </Link>
-                <Link
-                  href="#"
-                  className="text-sm font-medium hover:underline underline-offset-4 flex items-center"
-                  prefetch={false}
-                >
-                  <InfoIcon className="h-4 w-4 mr-2" />
-                  About
-                </Link>
+               
               </nav>
             </SheetContent>
           </Sheet>
           <nav className="hidden lg:flex gap-4 sm:gap-6">
             <Link
-              href="#"
+              href="/sign-in"
               className="text-sm font-medium hover:underline underline-offset-4 flex items-center"
               prefetch={false}
             >
@@ -71,7 +68,7 @@ export default function LandingPage() {
               For Drivers
             </Link>
             <Link
-              href="#"
+              href="/sign-in"
               className="text-sm font-medium hover:underline underline-offset-4 flex items-center"
               prefetch={false}
             >
@@ -86,19 +83,12 @@ export default function LandingPage() {
               <DollarSignIcon className="h-4 w-4 mr-2" />
               Pricing
             </Link>
-            <Link
-              href="#"
-              className="text-sm font-medium hover:underline underline-offset-4 flex items-center"
-              prefetch={false}
-            >
-              <InfoIcon className="h-4 w-4 mr-2" />
-              About
-            </Link>
+           
           </nav>
         </div>
       </header>
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground">
+        <section className="w-full py-12  bg-gradient-to-r from-primary to-primary/80 text-primary-foreground">
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
               <div className="flex flex-col justify-center space-y-4">
@@ -131,10 +121,10 @@ export default function LandingPage() {
                   </Link>
                 </div>
               </div>
-              <img
-                src="/placeholder.svg"
-                width="550"
-                height="550"
+              <Image
+                src={banner}
+                width="500"
+                height="500"
                 alt="Hero"
                 className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last lg:aspect-square"
               />
@@ -156,8 +146,8 @@ export default function LandingPage() {
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
-              <img
-                src="/placeholder.svg"
+              <Image
+                src={image}
                 width="550"
                 height="310"
                 alt="Fatigue Insights"
@@ -205,12 +195,12 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-r from-secondary to-secondary/80 text-secondary-foreground">
-          <div className="container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
+        <section   className="w-full py-12 md:py-24 lg:py-32  bg-slate-100 text-secondary-foreground">
+          <div  className="container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
             <div className="space-y-2">
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
                 <ClipboardIcon className="h-6 w-6 mr-2 inline-block" />
-                Fatigue Tracking for Transport Agencies
+                Fatigue Tracking for Transport  Agencies
               </h2>
               <p className="max-w-[600px] text-secondary-foreground/80 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 Our platform provides transport agencies with comprehensive fatigue data and insights to help them

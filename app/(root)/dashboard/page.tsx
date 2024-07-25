@@ -21,7 +21,7 @@ const Home = () => {
     (async () => {
       try {
         // Make the request to fetch user type and data
-        const response = await fetch(`https://focuss-main.vercel.app/api/usertype?userId=${user?.publicMetadata?.userId}`);
+        const response = await fetch(`api/usertype?userId=${user?.publicMetadata?.userId}`);
         
         
         if (!response.ok) {
@@ -29,7 +29,7 @@ const Home = () => {
         }
 
         const data:any = await response.json();
-        setState(data.data.usertype)
+        setState(data)
         console.log(data)
         console.log('Fetched data:', data); // For debugging
 
@@ -39,7 +39,7 @@ const Home = () => {
       
       } 
     })(); // Self-calling function
-  }, [])
+  }, [user?.publicMetadata?.userId])
  // const {name}= useStore()
   return (
     <section className="flex size-full  items-center justify-center flex-wrap gap-5 text-white">
@@ -47,7 +47,7 @@ const Home = () => {
       <Card/>
       <Card/>
       <Card/> */}
-      { state === 'driver'? <DriverHome/> :  <AdminHome/> }
+      { state.userType === 'driver'? <DriverHome/> :  <AdminHome/> }
       
 
 

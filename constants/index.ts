@@ -1,13 +1,13 @@
 export const sidebarLinks = [
   {
     imgURL: '/icons/Home.svg',
-    route: '/',
+    route: '/dashboard',
     label: 'Monitor',
   },
 
   {
     imgURL: '/icons/upcoming.svg',
-    route: '/metrics',
+    route: '/dashboard/metrics',
     label: 'Metrics',
   },
   
