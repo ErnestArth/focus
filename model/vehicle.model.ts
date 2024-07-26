@@ -1,6 +1,12 @@
 import { Schema, models, model } from "mongoose";
 
 const VehicleSchema = new Schema({
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+    unique: true,
+  },
   numberPlate: {
     type: String,
     required: false,

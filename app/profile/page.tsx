@@ -19,28 +19,28 @@ function Page() {
 
   return (
     <section className="flex flex-col justify-center items-center h-screen max-w-md mx-auto">
-      <h1 className="font-bold text-white text-3xl mb-4">FOCUS</h1>
+      <h1 className="font-bold  text-3xl mb-4">FOCUS</h1>
        <div className='max-w-md'>
        </div>
-      <h1 className="my-8 font-semibold text-white sm:text-xl">Which user type do you prefer ?</h1>
+      <h1 className="my-8 font-semibold  sm:text-xl">Which user type do you prefer ?</h1>
       <div className="flex gap-4 my-3 w-[80%]">
         <div
-          className={`flex flex-col border-white border ${
+          className={`flex flex-col border-black/20 border ${
             selectedCard === 'driver' ? 'border-purple-1' : 'border-black/20'
           } px-4 py-2 rounded cursor-pointer hover:border-purple-1/60 shadow-sm w-[50%]`}
           onClick={() => handleBorderChange('driver')}
         >
-          <FaUser className={`${selectedCard === 'driver' ? 'text-purple-1' : 'text-white'} mb-4`} />
-          <h1 className="font-semibold text-white">Driver</h1>
-          <p className="text-[14px] text-white">Drive safe and monitor </p>
+          <FaUser className={`${selectedCard === 'driver' ? 'text-purple-1' : 'text-black'} mb-4`} />
+          <h1 className="font-semibold ">Driver</h1>
+          <p className="text-[14px] ">Drive safe and monitor </p>
         </div>
         <div
-          className={`flex flex-col border-white text-white border ${
+          className={`flex flex-col border-black/20 border ${
             selectedCard === 'admin' ? 'border-purple-1' : 'border-black/20'
           } px-4 py-2 rounded cursor-pointer hover:border-purple-1/60 shadow-sm w-[50%]`}
           onClick={() => handleBorderChange('admin')}
         >
-          <FaUser className={`${selectedCard === 'admin' ? 'text-purple-1' : 'text-white'} mb-4`} />
+          <FaUser className={`${selectedCard === 'admin' ? 'text-purple-1' : 'text-black'} mb-4`} />
           <h1 className="font-semibold">Admin</h1>
           <p className="text-[14px]">Manage your transportation  </p>
         </div>

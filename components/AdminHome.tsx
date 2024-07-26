@@ -7,6 +7,7 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuIte
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { useUser } from "@clerk/nextjs";
 
 import { Separator } from "@/components/ui/separator";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
@@ -17,12 +18,13 @@ export default function AdminHome() {
   const [isAddDriverOpen, setIsAddDriverOpen] = useState(false);
   const [isViewDriverOpen, setIsViewDriverOpen] = useState(false);
   // const [selectedDriver, setSelectedDriver] = useState<any>(null);
-
+const {user} = useUser()
   
   const [vehicleData, setVehicleData] = useState<any>({
     numberPlate: '',
     vehicleType: '',
-    deviceId: ''
+    deviceId: '',
+    userId:user?.publicMetadata.userId
   });
   const [vehicles, setVehicles] = useState<any>([]);
   const {vehicle,setVehicle}= useStore()

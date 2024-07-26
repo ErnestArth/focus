@@ -47,6 +47,8 @@ export default function DriverProfileSetup() {
       };
       console.log("Form Data:s", mergedData); // Log the form data
       const response = await axios.post('https://focuss-main.vercel.app/api/driver', mergedData);
+      const res = await axios.get(`https://focuss-main.vercel.app/api/vehicle/${ user?.publicMetadata?.userId}`);
+console.log(res);
 
       setLoading(false);
 
@@ -174,7 +176,7 @@ export default function DriverProfileSetup() {
             
           </div>
           <CardFooter className="flex justify-end gap-2">
-            <Button type="submit" disabled={loading}>
+            <Button  className=' ' type="submit" disabled={loading}>
               {loading ? 'Loading...' : 'Submit'}
             </Button>
           </CardFooter>

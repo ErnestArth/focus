@@ -4,6 +4,8 @@ export const PATCH = async (req: NextRequest) => {
   try {
     // Parse incoming JSON data from the request body
     const requestData = await req.json();
+    console.log(requestData,"hello");
+    
     // const { deviceId, ...updateData } = requestData;
 
     // // Connect to MongoDB database
@@ -30,6 +32,7 @@ export const PATCH = async (req: NextRequest) => {
     response.headers.set('Access-Control-Allow-Methods', 'PATCH, OPTIONS'); // Allow PATCH and OPTIONS methods
     response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Allow specific headers
     return response;
+
   } catch (error) {
     // Handle errors
     console.error('Error updating vehicle:', error);

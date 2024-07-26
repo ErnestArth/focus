@@ -120,7 +120,7 @@ const formData = watch();
           </div>
           <div className="md:col-span-2">
             <div className="flex justify-end">
-              <Button type="submit" disabled={loading}>
+              <Button  className=' ' type="submit" disabled={loading}>
                 {loading ? 'loading...' : 'Submit'}
               </Button>
             </div>

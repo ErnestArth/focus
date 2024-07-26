@@ -17,8 +17,8 @@ export default function LandingPage() {
     <div className="flex flex-col min-h-[100dvh]">
       <header className="px-4 lg:px-6 h-14 flex items-center bg-primary text-primary-foreground">
         <Link href="#" className="flex items-center justify-center" prefetch={false}>
-          <TruckIcon className="h-6 w-6" />
-          <span className="sr-only">Fatigue Tracker</span>
+          <TruckIcon className="h-6 w-6  animate-bounce" />
+          <span className=" font-bold">FOCUS</span>
         </Link>
         <div className="ml-auto flex items-center">
           <Sheet>
@@ -158,7 +158,7 @@ export default function LandingPage() {
                   <li>
                     <div className="grid gap-1">
                       <h3 className="text-xl font-bold">
-                        <ClockIcon className="h-5 w-5 mr-2 inline-block" />
+                        <ClockIcon className="h-5 w-5 mr-2 inline-block animate-spin" />
                         Real-time Monitoring
                       </h3>
                       <p className="text-muted-foreground">
@@ -170,7 +170,7 @@ export default function LandingPage() {
                   <li>
                     <div className="grid gap-1">
                       <h3 className="text-xl font-bold">
-                        <BarChartIcon className="h-5 w-5 mr-2 inline-block" />
+                        <BarChartIcon className="h-5 w-5 mr-2 inline-block animate-pulse" />
                         Personalized Insights
                       </h3>
                       <p className="text-muted-foreground">
@@ -182,7 +182,7 @@ export default function LandingPage() {
                   <li>
                     <div className="grid gap-1">
                       <h3 className="text-xl font-bold">
-                        <LightbulbIcon className="h-5 w-5 mr-2 inline-block" />
+                        <LightbulbIcon className="h-5 w-5 mr-2 inline-block animate-ping" />
                         Proactive Suggestions
                       </h3>
                       <p className="text-muted-foreground">
@@ -231,7 +231,7 @@ export default function LandingPage() {
           <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
             <div className="space-y-3">
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-                <RocketIcon className="h-6 w-6 mr-2 inline-block" />
+                <RocketIcon className="h-6 w-6 mr-2 inline-block animate-bounce" />
                 Experience the Fatigue Tracking Solution
               </h2>
               <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -260,7 +260,7 @@ export default function LandingPage() {
       <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t bg-muted text-muted-foreground">
         <p className="text-xs">
           <CopyrightIcon className="h-4 w-4 mr-2 inline-block" />
-          2024 Fatigue Tracker. All rights reserved.
+          2024 FOCUS. All rights reserved.
         </p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
           <Link href="#" className="text-xs hover:underline underline-offset-4 text-secondary" prefetch={false}>

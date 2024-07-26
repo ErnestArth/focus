@@ -10,6 +10,17 @@ const config = {
   ],
   prefix: '',
   theme: {
+    extend: {
+      keyframes: {
+        move: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(100px)' },
+        },
+      },
+      animation: {
+        move: 'move 2s linear infinite',
+      },
+    },
     container: {
       center: true,
       padding: '2rem',
