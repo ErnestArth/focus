@@ -1,6 +1,6 @@
 import type { Config } from 'tailwindcss';
 
-const config = {
+const config: Config = {
   darkMode: ['class'],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -16,19 +16,20 @@ const config = {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(100px)' },
         },
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
+        },
       },
       animation: {
         move: 'move 2s linear infinite',
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
       },
-    },
-    container: {
-      center: true,
-      padding: '2rem',
-      screens: {
-        '2xl': '1400px',
-      },
-    },
-    extend: {
       colors: {
         dark: {
           1: '#1C1F2E',
@@ -54,26 +55,19 @@ const config = {
           1: '#F9A90E',
         },
       },
-      keyframes: {
-        'accordion-down': {
-          from: { height: '0' },
-          to: { height: 'var(--radix-accordion-content-height)' },
-        },
-        'accordion-up': {
-          from: { height: 'var(--radix-accordion-content-height)' },
-          to: { height: '0' },
-        },
-      },
-      animation: {
-        'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out',
-      },
       backgroundImage: {
         hero: "url('/images/hero-background.png')",
+      },
+      container: {
+        center: true,
+        padding: '2rem',
+        screens: {
+          '2xl': '1400px',
+        },
       },
     },
   },
   plugins: [require('tailwindcss-animate')],
-} satisfies Config;
+};
 
 export default config;
