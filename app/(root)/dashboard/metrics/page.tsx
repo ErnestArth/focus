@@ -4,24 +4,24 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, Label } from 'recharts';
 
-const data = [
-  { name: 'January', fatigueRate: 30 },
-  { name: 'February', fatigueRate: 25 },
-  { name: 'March', fatigueRate: 35 },
-  { name: 'April', fatigueRate: 40 },
-  { name: 'May', fatigueRate: 45 },
-  { name: 'June', fatigueRate: 50 },
-  { name: 'July', fatigueRate: 55 },
-  { name: 'August', fatigueRate: 60 },
-  { name: 'September', fatigueRate: 50 },
-  { name: 'October', fatigueRate: 45 },
-  { name: 'November', fatigueRate: 40 },
-  { name: 'December', fatigueRate: 35 },
-];
+// const data = [
+//   { name: 'January', fatigueRate: 30 },
+//   { name: 'February', fatigueRate: 25 },
+//   { name: 'March', fatigueRate: 35 },
+//   { name: 'April', fatigueRate: 40 },
+//   { name: 'May', fatigueRate: 45 },
+//   { name: 'June', fatigueRate: 50 },
+//   { name: 'July', fatigueRate: 55 },
+//   { name: 'August', fatigueRate: 60 },
+//   { name: 'September', fatigueRate: 50 },
+//   { name: 'October', fatigueRate: 45 },
+//   { name: 'November', fatigueRate: 40 },
+//   { name: 'December', fatigueRate: 35 },
+// ];
 
 const Page = () => {
   const {userDetails} = useStore()
-  const [value, setData]= useState([])
+  const [value, setData]= useState<any>([])
  
 
   useEffect(() => {
