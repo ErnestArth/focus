@@ -4,21 +4,53 @@ import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { CartesianGrid, XAxis, Line, LineChart } from "recharts"
 import { ChartTooltipContent, ChartTooltip, ChartContainer } from "@/components/ui/chart"
+import { useEffect, useState } from "react"
+import axios from "axios"
+// import { useUser } from "@clerk/nextjs"
+import useStore from "@/lib/store"
 
 export default function DriverHome() {
+  // const {user} = useUser()
+  const {userDetails} = useStore()
+  const [value, setData]= useState<any>([])
+
+  const refreshPage = () => {
+    window.location.reload();
+  };
+
+  useEffect(() => {
+    
+  const fetchVehicles = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/api/vehicle/metrics/${userDetails.deviceId}`); // Replace with your backend API endpoint to fetch vehicles
+      console.log(response);
+
+      if (response.status === 200) {
+        setData(response.data)
+         // Update vehicles state with fetched data
+      } else {
+        console.error('Failed to fetch vehicles');
+      }
+    } catch (error) {
+      console.error('Error fetching vehicles:', error);
+    }
+  };
+    // Fetch vehicles when component mounts
+    fetchVehicles();
+  }, [])
   return (
     <div className="flex flex-col w-full max-w-4xl mx-auto p-6 md:p-8 lg:p-10 bg-background rounded-lg shadow-lg">
       <div className="flex flex-col md:flex-row items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold mb-2">Driver Fatigue Dashboard</h1>
-          <p className="text-muted-foreground">Monitor and manage your driving fatigue levels in real-time.</p>
+          <h1 className="text-2xl text-white font-bold mb-2">Driver Fatigue Dashboard</h1>
+          <p className="text-white">Device Identification : {userDetails.deviceId} </p>
         </div>
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 text-sm font-medium">
-            <ClockIcon className="h-5 w-5 text-muted-foreground" />
-            <span>Last updated: 5 min ago</span>
+          <div className="flex text-white items-center gap-2 text-sm font-medium">
+            <ClockIcon className="h-5 w-5 text-white" />
+           {/* <span>Last updated: 5 min ago</span> */}
           </div>
-          <Button variant="outline" size="sm">
+          <Button onClick={refreshPage}  size="sm">
             <RefreshCwIcon className="h-4 w-4" />
             <span>Refresh</span>
           </Button>
@@ -32,7 +64,7 @@ export default function DriverHome() {
           <CardContent className="flex flex-col items-center justify-center">
             <div className="relative w-full h-32">
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-4xl font-bold text-green-500">No Value</div>
+                <div className="text-4xl font-bold text-green-500">{userDetails.status} </div>
               </div>
               
             </div>
@@ -43,28 +75,23 @@ export default function DriverHome() {
             <CardTitle>Daily Fatigue History</CardTitle>
           </CardHeader>
           <CardContent>
-            <LinechartChart className="w-full aspect-[9/4]" />
+            <LinechartChart data={value} className="w-full aspect-[9/4]" />
           </CardContent>
         </Card>
         <Card>
           <CardHeader>
             <CardTitle>Fatigue Metrics</CardTitle>
           </CardHeader>
-          <CardContent className="grid grid-cols-2 gap-4">
+          <CardContent className="grid grid-cols-2gap-4">
+           
             <div className="flex flex-col items-center">
-              <div className="text-4xl font-bold">0</div>
-              <div className="text-muted-foreground">Average Fatigue</div>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="text-4xl font-bold">0</div>
+              <div className="text-4xl font-bold">{userDetails.fatigueWarnings}</div>
               <div className="text-muted-foreground">Fatigue Alerts</div>
             </div>
+            
             <div className="flex flex-col items-center">
-              <div className="text-4xl font-bold">0%</div>
-              <div className="text-muted-foreground">Fatigue Trend</div>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="text-4xl font-bold">0%</div>
+              <div className="text-4xl font-bold">{value?.reductionPercentage
+              }%</div>
               <div className="text-muted-foreground">Fatigue Reduction</div>
             </div>
           </CardContent>
@@ -218,21 +245,14 @@ function LinechartChart(props:any) {
       <ChartContainer
         config={{
           desktop: {
-            label: "Desktop",
-            color: "hsl(var(--chart-1))",
+            label: "Fatigue Rate",
+            color: "black",
           },
         }}
       >
         <LineChart
           accessibilityLayer
-          data={[
-            { month: "January", desktop: 186 },
-            { month: "February", desktop: 305 },
-            { month: "March", desktop: 237 },
-            { month: "April", desktop: 73 },
-            { month: "May", desktop: 209 },
-            { month: "June", desktop: 214 },
-          ]}
+          data={props.data.metric}
           margin={{
             left: 12,
             right: 12,
@@ -247,7 +267,7 @@ function LinechartChart(props:any) {
             tickFormatter={(value) => value.slice(0, 3)}
           />
           <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-          <Line dataKey="desktop" type="natural" stroke="var(--color-desktop)" strokeWidth={2} dot={false} />
+          <Line dataKey="fatigueRate" type="natural" stroke="var(--color-desktop)" strokeWidth={2} dot={false} />
         </LineChart>
       </ChartContainer>
     </div>

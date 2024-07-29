@@ -2,8 +2,9 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { connectToDB } from '@/lib/connect';
-import Vehicle from '@/model/vehicle.model'; // Import your Vehicle model
-import User from '@/model/user.model';
+import Vehicle from '@/model/vehicle.model';
+// Import your Vehicle model
+
 
 
 
@@ -13,16 +14,22 @@ export const GET = async (req: NextRequest,{params}:any) => {
   try {
     // Connect to MongoDB database
 
+    console.log(req);
+    
+    
     await connectToDB();
+    const {getByID}= params
     // check if  user first 
-    const {getById}= params
-    const user = await User.findById(getById)
-    if(!user){
+    
+    // const user = await User.findById(getByID)
+    // console.log(user);
+    
+    // if(!user){
         
-    return NextResponse.json({ message:"user not found" })
-    }
+    // return NextResponse.json({ message:"user not found" })
+    // }
     // Fetch all vehicles from the database
-    const vehicles = await Vehicle.findById(getById);
+    const vehicles = await Vehicle.findOne({deviceId:getByID})
     if (!vehicles){
       
     return NextResponse.json({ message:"vehicle not found" })  

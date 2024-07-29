@@ -27,10 +27,13 @@ export const POST = async (req: NextRequest) => {
     if (!vehicle) {
       vehicle = new Vehicle({
         deviceId,
+        userId,
         status: 'active',
       });
       await vehicle.save();
     }
+    console.log(vehicle);
+    
 
     // Create a new driver profisle and associate it with the vehicle
     const newDriverProfile = new Driver({

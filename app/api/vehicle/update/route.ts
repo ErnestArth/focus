@@ -1,18 +1,40 @@
+import Vehicle from '@/model/vehicle.model';
+import Warnings from '@/model/warnings.model';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const PATCH = async (req: NextRequest) => {
   try {
     // Parse incoming JSON data from the request body
     const requestData = await req.json();
-    console.log(requestData,"hello");
+    console.log(requestData,"my brother");
     
-    // const { deviceId, ...updateData } = requestData;
+    const { mac } = requestData;
 
     // // Connect to MongoDB database
     // await connectToDB();
 
     // // Find the vehicle by deviceId
-    // const vehicle = await Vehicle.findOne({ deviceId });
+    // const vehicle = await Vehicle.findOne({ deviceId:prompt });
+    const updatedVehicle = await Vehicle.findOneAndUpdate(
+      { deviceId:mac },
+      {
+        $inc: { fatigueWarnings: 1 }
+      },
+      { new: true, runValidators: true }
+    );
+console.log(updatedVehicle,"hiiiiiiiii");
+
+    if (!updatedVehicle) {
+      return NextResponse.json({ message: 'Vehicle not found' }, { status: 404 });
+    }
+    const warnings = new Warnings({
+      deviceId: mac,
+      warning: 1
+    });
+    console.log(warnings);
+
+    await warnings.save()
+    
 
     // if (!vehicle) {
     //   return NextResponse.json({ message: 'Vehicle not found' }, { status: 404 });

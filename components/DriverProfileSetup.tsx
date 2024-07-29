@@ -46,16 +46,14 @@ export default function DriverProfileSetup() {
        userId: user?.publicMetadata?.userId// Merge publicMetadata with form data
       };
       console.log("Form Data:s", mergedData); // Log the form data
-      const response = await axios.post('https://focuss-main.vercel.app/api/driver', mergedData);
-      const res = await axios.get(`https://focuss-main.vercel.app/api/vehicle/${ user?.publicMetadata?.userId}`);
-console.log(res);
-
+      const response = await axios.post('http://localhost:3000/api/driver', mergedData);
+   
       setLoading(false);
 
       if (response.status === 200) {
         alert('Profile updated successfully');
        
-        router.push('/');
+        router.push('/dashboard');
       } else {
         alert('Failed to update profile');
       }

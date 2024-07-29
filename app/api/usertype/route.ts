@@ -19,8 +19,7 @@ export const GET = async (req: NextRequest) => {
     await connectToDB();
 
     // Check if the user is a driver
-    const driver = await Driver.findOne({ userId })
-    
+    const driver = await Driver.findOne({ userId }).populate("vehicle")    
     if (driver) {
       return NextResponse.json({ userType: 'driver', driver });
     }

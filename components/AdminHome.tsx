@@ -35,7 +35,7 @@ const {user} = useUser()
 
   const fetchVehicles = async () => {
     try {
-      const response = await axios.get('https://focuss-main.vercel.app/api/vehicle'); // Replace with your backend API endpoint to fetch vehicles
+      const response = await axios.get('http://localhost:3000/api/vehicle'); // Replace with your backend API endpoint to fetch vehicles
 
       if (response.status === 200) {
         setVehicles(response.data.vehicles);
@@ -51,7 +51,7 @@ const {user} = useUser()
 
   const handleAddVehicle = async () => {
     try {
-      const response = await axios.post('https://focuss-main.vercel.app/api/vehicle', vehicleData); // Send vehicleData to backend API
+      const response = await axios.post('http://localhost:3000/api/vehicle', vehicleData); // Send vehicleData to backend API
 
       if (response.status === 200) {
         alert('Vehicle added successfully');
@@ -212,14 +212,14 @@ const {user} = useUser()
             <div className="grid items-center grid-cols-4 gap-4">
               <Label className="text-right">Status</Label>
               <div className="col-span-3">
-                <Badge className="text-xs" variant={vehicle?.numberPlate === "Active" ? "secondary" : "outline"}>
-                  {vehicle?.numberPlate}
+                <Badge className="text-xs" variant={vehicle?.status === "Active" ? "secondary" : "outline"}>
+                  {vehicle?.status}
                 </Badge>
               </div>
             </div>
             <div className="grid items-center grid-cols-4 gap-4">
               <Label className="text-right">Last Updated</Label>
-              <div className="col-span-3">{vehicle?.numberPlate}</div>
+              <div className="col-span-3">{vehicle?.lastUpdated}</div>
             </div>
             <Separator />
             <div className="grid gap-2">
@@ -241,7 +241,8 @@ const {user} = useUser()
                   </TableRow>
                   <TableRow>
                     <TableCell>Fatigue Warnings</TableCell>
-                    <TableCell>5</TableCell>
+                    <TableCell>{vehicle.fatigueWarnings
+              }</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>

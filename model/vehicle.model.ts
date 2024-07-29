@@ -1,6 +1,6 @@
-import { Schema, models, model } from "mongoose";
+import mongoose, { Schema, models, model } from "mongoose";
 
-const VehicleSchema = new Schema({
+const VehicleSchema = new mongoose.Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -33,7 +33,7 @@ const VehicleSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-  },
+  }
 });
 
 const Vehicle = models.Vehicle || model("Vehicle", VehicleSchema);
