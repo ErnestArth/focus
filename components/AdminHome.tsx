@@ -35,7 +35,7 @@ const {user} = useUser()
 
   const fetchVehicles = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/vehicle'); // Replace with your backend API endpoint to fetch vehicles
+      const response = await axios.get('https://focus-wheat.vercel.app/api/vehicle'); // Replace with your backend API endpoint to fetch vehicles
 
       if (response.status === 200) {
         setVehicles(response.data.vehicles);
