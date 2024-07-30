@@ -3,6 +3,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { connectToDB } from '@/lib/connect';
 import Vehicle from '@/model/vehicle.model';
+// import User from '@/model/user.model';
 // Import your Vehicle model
 
 
@@ -21,8 +22,11 @@ export const GET = async (req: NextRequest,{params}:any) => {
     const {getByID}= params
     // check if  user first 
     
-    // const user = await User.findById(getByID)
-    // console.log(user);
+    const vehicle = await Vehicle.findById(getByID)
+  
+    if (vehicle){
+      return NextResponse.json({ message:" vehicle found ",vehicle })
+    }
     
     // if(!user){
         

@@ -23,11 +23,13 @@ const Home = () => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-
+        
         const data: any = await response.json();
-        setUser(data?.driver?.vehicle || data?.admin); // Update user state
+        const res = await fetch(`http://localhost:3000/api/vehicle/${data.driver.vehicle}`);
+        const results: any = await res.json();
+        setUser(results?.vehicle || data?.admin); // Update user state
         setState(data); // Update local state with fetched data
-        console.log('Fetched data:', data); // For debugging
+        console.log('Fetched data:', results); // For debugging
 
       } catch (err) {
         console.error('Error fetching user:', err);

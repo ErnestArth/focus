@@ -22,7 +22,7 @@ export default function DriverHome() {
     
   const fetchVehicles = async () => {
     try {
-      const response = await axios.get(`https://focus-wheat.vercel.app/api/vehicle/metrics/${userDetails.deviceId}`); // Replace with your backend API endpoint to fetch vehicles
+      const response = await axios.get(`http://localhost:3000/api/vehicle/metrics/${userDetails.deviceId}`); // Replace with your backend API endpoint to fetch vehicles
       console.log(response);
 
       if (response.status === 200) {

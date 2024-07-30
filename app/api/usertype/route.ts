@@ -8,18 +8,20 @@ import Admin from '@/model/admin.model';
 export const GET = async (req: NextRequest) => {
   try {
     // Parse query parameters from the request
+    await connectToDB();
     const url = new URL(req.url);
-    const userId = url.searchParams.get('userId');
 
+    const userId = url.searchParams.get('userId');
+   console.log(userId);
+   
     if (!userId) {
       return NextResponse.json({ message: 'User ID is required' }, { status: 400 });
     }
 
     // Connect to MongoDB database
-    await connectToDB();
 
     // Check if the user is a driver
-    const driver = await Driver.findOne({ userId }).populate("vehicle")    
+    const driver = await Driver.findOne({ userId })  
     if (driver) {
       return NextResponse.json({ userType: 'driver', driver });
     }
